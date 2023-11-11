@@ -1,43 +1,43 @@
-class MemoItem {
-    constructor(title, text) {
-        this.title = title;
-        this.text = text;
-    }
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const url = require('url');
+let win;
 
-    render() {
-        const memoItem = document.createElement("div");
-        memoItem.className = "memo-item";
-        memoItem.innerHTML = `<h2>${this.title}</h2><p>${this.text}</p>`;
-        return memoItem;
-    }
+function createWindow () {
+  // ブラウザウィンドウを作成します。
+  win = new BrowserWindow({width: 800, height: 600});
+
+  //アプリケーションのindex.htmlをロードします。
+  win.loadURL(url.format({
+    pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+    // Open the DevTools.
+    win.webContents.openDevTools()
+
+  //ウィンドウが閉じられると発生します。
+  win.on('closed', () => {
+    win = null
+  });
+
 }
+//このメソッドは、Electronが初期化を終了し、ブラウザウィンドウを作成する準備ができたときに呼び出されます。
+app.on('ready', createWindow);
 
-document.addEventListener("DOMContentLoaded", function () {
-    const memoInput = document.getElementById("memo-input");
-    const titleInput = document.getElementById("title-input");
-    const addButton = document.getElementById("add-button");
-    const memoList = document.getElementById("memo-list");
-    const memoItems = [];
+//すべてのウィンドウが閉じられると終了します。
+app.on('window-all-closed', () => {
+  // MacOSでは、ユーザーがCmd + Qで明示的に終了するまでプロセスは生き続ける
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
 
-    addButton.addEventListener("click", function () {
-        const title = titleInput.value;
-        const memoText = memoInput.value;
-        if (title.trim() !== "" && memoText.trim() !== "") {
-            let existingMemo = memoItems.find((item) => item.title === title);
-            if (existingMemo) {
-                existingMemo.text += `<br>${memoText}`;
-                // 既存のメモを更新
-                const memoItemElement = existingMemo.render();
-                const existingMemoIndex = memoItems.indexOf(existingMemo);
-                memoList.replaceChild(memoItemElement, memoList.childNodes[existingMemoIndex]);
-            } else {
-                const memoItem = new MemoItem(title, memoText);
-                memoItems.push(memoItem);
-                const memoItemElement = memoItem.render();
-                memoList.appendChild(memoItemElement);
-            }
-            titleInput.value = "";
-            memoInput.value = "";
-        }
-    });
+app.on('activate', () => {
+  // MacOSでは、ウィンドウを全て閉じても、プロセスは生き続け、
+  // ドックアイコンをクリックすると、再表示される。
+  if (win === null) {
+    createWindow();
+  }
 });
