@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "electron": "^27.0.4"
+  },
+  "name": "murder_mystery_memo",
+  "description": "",
+  "version": "1.0.0",
+  "main": "script.js",
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13"
+  },
+  "scripts": {
+    "start": "node_modules/.bin/electron .",
+    "build": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
