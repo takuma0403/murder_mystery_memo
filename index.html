@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Hello Typhoon!</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Muder Mystery Memo App</title>
   </head>
   <body>
-    <h1>Hello Typhoon!</h1>
+    <button type="button" onclick="onClickDevToolButton()">DevTool</button>
+    <div class="input-div">
+      <label for="person">人物:</label><br>
+      <input type="text" id="person" name="person"><br><br>
+  
+      <label for="time">時間:</label><br>
+      <input type="text" id="time" name="time"><br><br>
+  
+      <label for="place">場所:</label><br>
+      <input type="text" id="place" name="place"><br><br>
+  
+      <label for="action">行動:</label><br>
+      <input type="text" id="action" name="action">
+    </div>
+    <p>{{test}}</p>
+    <script src="script.js"></script>
   </body>
 </html>

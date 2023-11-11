@@ -1,18 +1,24 @@
 {
-  "dependencies": {
-    "electron": "^27.0.4"
-  },
   "name": "murder_mystery_memo",
   "description": "",
   "version": "1.0.0",
-  "main": "script.js",
+  "main": "main.js",
   "devDependencies": {
-    "electron-prebuilt": "^1.4.13"
+    "electron": "^27.0.4",
+    "electron-builder": "^24.6.4"
   },
   "scripts": {
     "start": "node_modules/.bin/electron .",
-    "build": "node build.js",
+    "build:win": "electron-builder --win --x64",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "appId": "com.example.myapp",
+    "productName": "MyApp",
+    "files": [
+      "build/**/*",
+      "public/**/*"
+    ]
   },
   "author": "",
   "license": "ISC"
