@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node_modules/.bin/electron .",
     "build:win": "electron-builder --win --x64",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "node release.js"
   },
   "build": {
     "appId": "com.example.myapp",

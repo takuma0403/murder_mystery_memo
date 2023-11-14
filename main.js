@@ -4,14 +4,17 @@ const url = require('url');
 
 function createWindow () {
   // ブラウザウィンドウを作成します。
-  let mainWindow = new BrowserWindow({width: 800, height: 600});
-
-  // //デベロッパーツール（リリース時には削除する）
-  mainWindow.webContents.openDevTools()
+  let mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      defaultEncoding: 'UTF-8'
+    }
+  });
 
   //アプリケーションのindex.htmlをロードします。
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'main.html'),
     protocol: 'file:',
     slashes: true
   }));
