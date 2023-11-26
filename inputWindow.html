@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Muder Mystery Memo inputWindow</title>
+  </head>
+  <body>
+    <div class="input-div">
+      <div>
+        <label for="person">人物:</label><br>
+        <input type="text" id="person" name="person">
+        <input type="color" id="person" name="person-color">
+      </div>
+      <div>
+        <label for="time">時間:</label><br>
+        <input type="time" id="time" name="time">
+      </div>
+      <div>
+        <label for="place">場所:</label><br>
+        <input type="text" id="place" name="place">
+      </div>
+      <div>
+        <label for="action">行動:</label><br>
+        <input type="text" id="action" name="action">
+      </div>
+    </div>
+    <div>
+      <label for="textInput">Enter Text:</label>
+      <input type="text" id="textInput">
+      <button onclick="sendText()">Submit</button>
+    </div>
+    <div>
+      <script>
+        const { ipcRenderer } = require('electron');
+    
+        function sendText() {
+          const textInput = document.getElementById('textInput').value;
+          ipcRenderer.send('text-entered', textInput);
+          window.close();
+        }
+      </script>
+    </div>
+  </body>
+</html>

@@ -4,13 +4,13 @@
   "version": "1.0.0",
   "main": "main.js",
   "devDependencies": {
-    "electron": "^27.0.4",
-    "electron-builder": "^24.6.4"
+    "electron": "^27.0.4"
   },
   "scripts": {
     "start": "node_modules/.bin/electron .",
-    "build:win": "electron-builder --win --x64",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "electron-packager . muder_mystery_memo --platform=win32 --arch=x64",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "node release.js"
   },
   "build": {
     "appId": "com.example.myapp",
