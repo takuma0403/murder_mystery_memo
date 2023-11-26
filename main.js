@@ -14,13 +14,13 @@ function createWindow () {
 
   //アプリケーションのindex.htmlをロードします。
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'main.html'),
+    pathname: path.join(__dirname, '/mian.html'),
     protocol: 'file:',
     slashes: true
   }));
 
   //ウィンドウが閉じられると発生します。
-  win.on('closed', () => {
+  mainWindow.on('closed', () => {
     win = null
   });
 }
