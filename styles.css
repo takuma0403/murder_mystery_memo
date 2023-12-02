@@ -1,5 +1,83 @@
 /* styles.css */
 body {
-    font-family: UTF-8;
-    background-color: #f0f0f0;
-}
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .input-div {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 300px;
+    width: 80%;
+    margin-bottom: 20px;
+    margin: auto;
+  }
+
+  .submit-button {
+    width: 100%;
+    margin: auto;
+    max-width: 400px;
+    /* margin-bottom: 15px; */
+  }
+  
+  .input-div div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    color: #bbb;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="time"],
+  input[type="color"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #fff; /* 文字色を白に変更 */
+    background-color: #292929;
+  }
+  
+  input[type="text"]#action {
+    font-size: 72px; /* 4 times the default font size */
+    padding: 40px; /* 4 times the default padding */
+  }
+  
+  input[type="color"] {
+    height: 30px;
+  }
+  
+  button {
+    background-color: #4c4faf; /* 要望に合わせて変更 */
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 128px;
+  }
+  
+  button:hover {
+    background-color: #8845a0; /* 要望に合わせて変更 */
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
