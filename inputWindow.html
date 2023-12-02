@@ -10,7 +10,7 @@
       <div>
         <label for="person">人物:</label><br>
         <input type="text" id="person" name="person">
-        <input type="color" id="person" name="person-color">
+        <input type="color" id="person-color" name="person-color">
       </div>
       <div>
         <label for="time">時間:</label><br>
@@ -26,20 +26,8 @@
       </div>
     </div>
     <div>
-      <label for="textInput">Enter Text:</label>
-      <input type="text" id="textInput">
-      <button onclick="sendText()">Submit</button>
+      <button onclick="recordMemo()">Submit</button>
     </div>
-    <div>
-      <script>
-        const { ipcRenderer } = require('electron');
-    
-        function sendText() {
-          const textInput = document.getElementById('textInput').value;
-          ipcRenderer.send('text-entered', textInput);
-          window.close();
-        }
-      </script>
-    </div>
+    <script src="inputWindow.js"></script>
   </body>
 </html>
