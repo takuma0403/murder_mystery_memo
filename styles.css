@@ -11,6 +11,11 @@ body {
     height: 100%;
   }
   
+  .input-window {
+    width: 100%;
+    height: 100%;
+  }
+
   .input-div {
     background-color: #1e1e1e;
     border-radius: 8px;
@@ -54,8 +59,9 @@ body {
   }
   
   input[type="text"]#action {
-    font-size: 72px; /* 4 times the default font size */
+    font-size: 16px; /* 4 times the default font size */
     padding: 40px; /* 4 times the default padding */
+    height: 48px;
   }
   
   input[type="color"] {

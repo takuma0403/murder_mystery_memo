@@ -6,27 +6,29 @@
     <title>Muder Mystery Memo inputWindow</title>
   </head>
   <body>
-    <div class="input-div">
-      <div>
-        <label for="person">人物:</label><br>
-        <input type="text" id="person" name="person">
-        <input type="color" id="person-color" name="person-color">
+    <div class="input-window">
+      <div class="input-div">
+        <div>
+          <label for="person">人物:</label><br>
+          <input type="text" id="person" name="person">
+          <input type="color" id="person-color" name="person-color">
+        </div>
+        <div>
+          <label for="time">時間:</label><br>
+          <input type="time" id="time" name="time">
+        </div>
+        <div>
+          <label for="place">場所:</label><br>
+          <input type="text" id="place" name="place">
+        </div>
+        <div>
+          <label for="action">行動:</label><br>
+          <input type="text" id="action" name="action">
+        </div>
+        <div class="submit-button">
+          <button onclick="recordMemo()">Submit</button>
+        </div>
       </div>
-      <div>
-        <label for="time">時間:</label><br>
-        <input type="time" id="time" name="time">
-      </div>
-      <div>
-        <label for="place">場所:</label><br>
-        <input type="text" id="place" name="place">
-      </div>
-      <div>
-        <label for="action">行動:</label><br>
-        <input type="text" id="action" name="action">
-      </div>
-    </div>
-    <div class="submit-button">
-      <button onclick="recordMemo()">Submit</button>
     </div>
     <script src="inputWindow.js"></script>
   </body>
