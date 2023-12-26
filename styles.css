@@ -1,7 +1,7 @@
 /* styles.css */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #121212;
+    background-color: #ffffff;
     color: #fff;
     margin: 0;
     padding: 0;
@@ -17,19 +17,18 @@ body {
   }
 
   .input-div {
-    background-color: #1e1e1e;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    max-width: 300px;
-    width: 80%;
-    margin-bottom: 20px;
+    background-color: #fffaf0;
+    box-shadow: 0 4px 8px rgba(255, 253, 253, 0.2);
+    padding: 5%;
+    width: 95%;
+    height: 100%;
     margin: auto;
   }
 
   .submit-button {
+    margin-left: 0%;
     width: 100%;
-    margin: auto;
+    /* margin: auto; */
     max-width: 400px;
     /* margin-bottom: 15px; */
   }
@@ -37,39 +36,62 @@ body {
   .input-div div {
     margin-bottom: 15px;
   }
+  .input-person,
+  .input-time,
+  .input-person,
+  .input-action {
+    align-items: center;
+    display: block;
+  }
   
   label {
-    display: block;
+    /* display: block; */
     font-weight: bold;
-    color: #bbb;
-    margin-bottom: 5px;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   
   input[type="text"],
   input[type="time"],
   input[type="color"] {
+    /* width: calc(100% - 20px); */
+    padding: 10px;
+    /* box-sizing: border-box; */
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #000000; /* 文字色を白に変更 */
+    background-color: #fafbfd;
+  }
+  
+  textarea[type="text"]#action {
+    display: block;
     width: calc(100% - 20px);
     padding: 10px;
     box-sizing: border-box;
-    margin-top: 5px;
+    /* margin-top: 5px; */
     border: 1px solid #333;
-    border-radius: 5px;
-    color: #fff; /* 文字色を白に変更 */
-    background-color: #292929;
-  }
-  
-  input[type="text"]#action {
-    font-size: 16px; /* 4 times the default font size */
-    padding: 40px; /* 4 times the default padding */
-    height: 48px;
+    border-radius: 5px; 
+    color: #000000; /* 文字色を白に変更 */
+    /* background-color: #fafbfd; */
+    /* font-size: 16px; 4 times the default font size */
+    /* padding: 40px; 4 times the default padding */
+    /* height: 80px; */
+    resize: none;
+    /* overflow-y: auto; */
+    /* white-space: pre-wrap; */
   }
   
   input[type="color"] {
+    padding: 1px 2px;
+    vertical-align: middle;
     height: 30px;
+    width: 60px; /* 適切な幅を指定 */
+    vertical-align: middle;
   }
   
   button {
-    background-color: #4c4faf; /* 要望に合わせて変更 */
+    background-color: #8B13E8; /* 要望に合わせて変更 */
     color: #fff;
     padding: 10px;
     border: none;
@@ -80,7 +102,7 @@ body {
   }
   
   button:hover {
-    background-color: #8845a0; /* 要望に合わせて変更 */
+    background-color: #6700b6; /* 要望に合わせて変更 */
   }
   
   button:focus {
