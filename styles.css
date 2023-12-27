@@ -5,10 +5,9 @@ body {
     color: #fff;
     margin: 0;
     padding: 0;
-    /* display: flex; */
+    display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
   }
   
   .input-window {
@@ -23,6 +22,9 @@ body {
     width: 95%;
     height: 100%;
     margin: auto;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-between;  */
   }
 
   .submit-button {
@@ -41,7 +43,7 @@ body {
   .input-person,
   .input-action {
     align-items: center;
-    display: block;
+    align-items: stretch;
   }
   
   label {
@@ -57,7 +59,7 @@ body {
   input[type="color"] {
     /* width: calc(100% - 20px); */
     padding: 10px;
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
     border: 1px solid #333;
     border-radius: 5px;
     color: #000000; /* 文字色を白に変更 */

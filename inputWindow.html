@@ -12,6 +12,9 @@
           <label for="person">人物:</label><br>
           <input type="text" id="person" name="person">
           <input type="color" id="person-color" name="person-color">
+          <select id="personSelect" onchange="selectPerson()">
+            <option value="" disabled selected>以前に入力した名前</option>
+          </select>
         </div>
         <div class="input-time">
           <label for="time">時間:</label><br>
