@@ -1,0 +1,20 @@
+{
+    "persons":[
+        {
+            "name":"person1",
+            "color":"#0000FF"
+        },
+        {
+            "name":"person2",
+            "color":"#008000"
+        }
+    ],
+    "memos":[
+        {
+            "name":"person1",
+            "time":"",
+            "place":"",
+            "action":""
+        }
+    ]
+}

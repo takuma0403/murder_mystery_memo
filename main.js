@@ -60,47 +60,18 @@ function createMainWindow () {
   ipcMain.on('text-entered', (event, text) => {
     console.log('Text entered:', text);
   });
-  // createInputWindow()
+
+  ipcMain.on('send-path-to-parent', (event, path) => {
+    memoFilePath = path;
+  });
+  
+  ipcMain.on('request-memo-file-path', () => {
+    // 子ウィンドウにデータを送信
+    mainWindow.webContents.send('memo-file-path-from-parent-to-mainWindow', memoFilePath);
+  });
 }
 
-// function createInputWindow () {
-//   let inputWindow = new BrowserWindow({
-//     width: 400,
-//     height: 600,
-//     webPreferences: {
-//       defaultEncoding: 'UTF-8'
-//     }
-//   });
-
-//   //アプリケーションのindex.htmlをロードします。
-//   inputWindow.loadURL(url.format({
-//     pathname: path.join(__dirname, '/inputWindow.html'),
-//     protocol: 'file:',
-//     slashes: true
-//   }));
-
-//   //ウィンドウが閉じられると発生します。
-//   inputWindow.on('closed', () => {
-//     win = null
-//   });
-// }
-
-// //このメソッドは、Electronが初期化を終了し、ブラウザウィンドウを作成する準備ができたときに呼び出されます。
-// app.on('ready', createMainWindow);
-// // app.on('ready', createMainWindow, createInputWindow);
-
-// //すべてのウィンドウが閉じられると終了します。
-// app.on('window-all-closed', () => {
-//     app.quit();
-// });
-
-// app.on('activate', () => {
-//   // MacOSでは、ウィンドウを全て閉じても、プロセスは生き続け、
-//   // ドックアイコンをクリックすると、再表示される。
-//   if (win === null) {
-//   }
-// });
-
+let memoFilePath = ""
 
 app.whenReady().then(createMainWindow);
 
