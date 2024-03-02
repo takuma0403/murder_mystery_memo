@@ -7,6 +7,7 @@ const dialog = document.getElementById('input-window-dialog');
 const openButton = document.getElementById('open-dialog');
 const closeButton = document.getElementById('close-dialog');
 const memoDeleteButton = document.getElementById('memo-delete-button');
+const saveDataButton = document.getElementById('save-data-for-json');
 let select = document.getElementById('personSelect');
 let person = document.getElementById('person');
 let person_color = document.getElementById('person-color')
@@ -58,13 +59,37 @@ createNewDataButton.addEventListener('click', () => {
 
 // ダイアログを開くボタンがクリックされたときの処理
 openButton.addEventListener('click', () => {
-dialog.showModal();
+    if (selectedMemoId == "") {
+        person.value = ""
+        person_color.value = "#000000"
+        datetime.value = ""
+        place.value = ""
+        action.value = ""
+        remarks.value = ""
+    }
+    dialog.showModal();
 });
 
 // ダイアログ内の閉じるボタンがクリックされたときの処理
 closeButton.addEventListener('click', () => {
 dialog.close();
 });
+
+saveDataButton.addEventListener('click', () => {
+    ipcRenderer.send('request-data-save', memosData);
+    ipcRenderer.on('memo-file-path-from-parent-to-mainWindow', (event, path) => {
+        if (path) {
+            fs.writeFile(path, JSON.stringify(memosData, null, 2), (err) => {
+                if (err) throw err;
+                alert("保存に失敗しました")
+                console.log(err)
+            });
+        }
+        else {
+            return
+        }
+    })
+})
 
 memoDeleteButton.addEventListener('click', () => {
     // まだ何もない

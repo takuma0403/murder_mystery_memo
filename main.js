@@ -101,7 +101,15 @@ function createMainWindow () {
     }).catch(err => {
         console.error('Error while saving the file:', err);
     });
-});
+  });
+  ipcMain.on('request-data-save', (event, data) => {
+    if (data) {
+      fs.writeFile(memoFilePath, JSON.stringify(data, null, 2), (err) => {
+        if (err) throw err;
+        console.log('Data has been saved.');
+    });
+    }
+  })
 }
 
 app.whenReady().then(createMainWindow);
