@@ -66,6 +66,21 @@ function selectPersonReset() {
     select.value = "";
 }
 
+getMemoData()
+function getMemoData() {
+    ipcRenderer.send('request-memo-file-path');
+    ipcRenderer.on('memo-file-path-from-parent-to-mainWindow', (event, path) => {
+        if (path) {
+            const json = fs.readFileSync(path)
+            const data = JSON.parse(json)
+            console.log(data)
+        }
+        else {
+            return
+        }
+    });
+}
+
 
 // Call the populatePersons function when the page loads
 window.onload = populatePersons;
