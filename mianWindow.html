@@ -9,12 +9,10 @@
     <header>
       <div class="button-space">
         <div>
-          <button id="button">Open</button>
-          <p id="text"></p>
+          <button id="file-open-button">メモデータ取り込み</button>
         </div>
         <div>
-          <!-- <button onclick="openInputWindow()">Open Input Window</button> -->
-          <button id="open-dialog">ダイアログを開く</button>
+          <button id="open-dialog">新規のメモ</button>
         </div>
       </div>
     </header>
@@ -35,9 +33,9 @@
           </select>
           <input type="color" id="person-color" name="person-color">
         </div>
-        <div class="input-time">
-          <label for="time">時間:</label><br>
-          <input type="time" id="time" name="time" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="HH:MM">
+        <div class="input-datetime">
+          <label for="datetime">日時:</label><br>
+          <input type="datetime-local" id="datetime" name="datetime" placeholder="HH:MM">
         </div>
         <div class="input-place">
           <label for="place">場所:</label><br>
@@ -45,11 +43,14 @@
         </div>
         <div class="input-action">
           <label for="action">行動:</label><br>
-          <!-- <input type="text" id="action" name="action"> -->
           <textarea type="text" id="action" name="action" rows="5" cols="33"></textarea>
         </div>
-      <button onclick="recordMemo()">Submit</button>
-      <button id="close-dialog">閉じる</button>
+        <div class="input-remarks">
+          <label for="action">備考:</label><br>
+          <textarea type="text" id="remarks" name="remarks" rows="2" cols="33"></textarea>
+        </div>
+      <button onclick="recordMemo()">保存して閉じる</button>
+      <button id="close-dialog">保存せずに閉じる</button>
     </dialog>
       <script src="mainWindow.js"></script>
     </div>

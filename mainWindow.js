@@ -1,16 +1,26 @@
 const { ipcRenderer } = require('electron');
 
-const button = document.getElementById('button');
+const fileOpenButton = document.getElementById('file-open-button');
 const text = document.getElementById('text');
 const dialog = document.getElementById('input-window-dialog');
 const openButton = document.getElementById('open-dialog');
 const closeButton = document.getElementById('close-dialog');
+let select = document.getElementById('personSelect');
+let person = document.getElementById('person');
+let person_color = document.getElementById('person-color')
+let datetime = document.getElementById('datetime')
+let place = document.getElementById('place')
+let action = document.getElementById('action')
 
 const fs = require('fs'); 
 
-getMemoData()
+let fileMemoData = {}
+let persons = [];
+let charactors = []
 
-button.addEventListener('click', async () => {
+let personSelected = false;
+
+fileOpenButton.addEventListener('click', async () => {
     const filePath = await ipcRenderer.invoke('open-dialog');
     ipcRenderer.send('send-path-to-parent', filePath);
     getMemoData()
@@ -26,37 +36,26 @@ closeButton.addEventListener('click', () => {
 dialog.close();
 });
 
+// メモのデータをobject形式で取得する
 function getMemoData() {
     ipcRenderer.send('request-memo-file-path');
     ipcRenderer.on('memo-file-path-from-parent-to-mainWindow', (event, path) => {
         if (path) {
             const json = fs.readFileSync(path)
             const data = JSON.parse(json)
+            fileMemoData = data
+            console.log("ばばば")
             console.log(data)
+            console.log(fileMemoData)
         }
         else {
             return
         }
+        funcMemoReroad()
     });
 }
 
-// function openInputWindow() {
-//     ipcRenderer.send('button-clicked');
-// }
-
-// input-windowの処理
-
-let charactors = []
-
-let select = document.getElementById('personSelect');
-let person = document.getElementById('person');
-let person_color = document.getElementById('person-color')
-let time = document.getElementById('time')
-let place = document.getElementById('place')
-let action = document.getElementById('action')
-
-let personSelected = false;
-
+// 保存して閉じるボタン（なんかいろいろ）
 function recordMemo() {
     const newCharacter = { name: person.value, color: person_color.value }
 
@@ -75,38 +74,45 @@ function recordMemo() {
     }
 
     // debug
-    console.log(newCharacter)
+    // console.log(newCharacter)
 
     const log = {
         person: person.value,
         person_color: person_color.value,
-        time: time.value,
+        datetime: datetime.value,
         place: place.value,
         action: action.value
     }
 
-    console.log(log)
+    // console.log(log)
+
+    funcMemoReroad()
+
+    dialog.close();
 }
 
-
-let persons = ["Person1", "Person2", "Person3"];
-
-persons.forEach(function (person) {
-    var option = document.createElement("option");
-    option.value = person;
-    option.text = person;
-    select.add(option);
-});
-
-// Function to handle the selection of a person
+// selectタブで選択されたときに選択された内容を反映する
 function selectPerson() {
     personSelected = true
     if (select.value !== "") {
         person.value = select.value;
     }
 }
-
+// 人物を手動入力したときはselectタブをリセットする
 function selectPersonReset() {
     personSelected = false
     select.value = "";
+}
+
+// メモの内容が更新されたときに色々する
+function funcMemoReroad() {
+    console.log("はしったよお")
+    console.log(fileMemoData)
+    console.log(fileMemoData.persons)
+    fileMemoData.persons.forEach(function (person) {
+        let option = document.createElement("option");
+        option.value = person.name;
+        option.text = person.name;
+        select.add(option);
+    });
 }

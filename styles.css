@@ -39,7 +39,7 @@ body {
     margin-bottom: 15px;
   }
   .input-person,
-  .input-time,
+  .input-datetime,
   .input-person,
   .input-action {
     align-items: center;
@@ -55,7 +55,7 @@ body {
   }
   
   input[type="text"],
-  input[type="time"],
+  input[type="datetime"],
   input[type="color"] {
     /* width: calc(100% - 20px); */
     padding: 10px;
@@ -76,8 +76,8 @@ body {
     border-radius: 5px; 
     color: #000000; /* 文字色を白に変更 */
     /* background-color: #fafbfd; */
-    /* font-size: 16px; 4 times the default font size */
-    /* padding: 40px; 4 times the default padding */
+    /* font-size: 16px; 4 datetimes the default font size */
+    /* padding: 40px; 4 datetimes the default padding */
     /* height: 80px; */
     resize: none;
     /* overflow-y: auto; */
