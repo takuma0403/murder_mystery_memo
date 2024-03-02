@@ -6,6 +6,7 @@ const text = document.getElementById('text');
 const dialog = document.getElementById('input-window-dialog');
 const openButton = document.getElementById('open-dialog');
 const closeButton = document.getElementById('close-dialog');
+const memoDeleteButton = document.getElementById('memo-delete-button');
 let select = document.getElementById('personSelect');
 let person = document.getElementById('person');
 let person_color = document.getElementById('person-color')
@@ -65,6 +66,10 @@ closeButton.addEventListener('click', () => {
 dialog.close();
 });
 
+memoDeleteButton.addEventListener('click', () => {
+    // まだ何もない
+})
+
 // メモのデータをobject形式で取得する
 function getMemoData() {
     ipcRenderer.send('request-memo-file-path');
@@ -93,9 +98,11 @@ function recordMemo() {
     } else {
         if (isNameDuplicate && !personSelected) {
             alert("すでにその名前は存在しています")
+            return
         }
         if (isColorDuplicate && !personSelected) {
             alert("すでにその色は使われています")
+            return
         }
     }
 
@@ -135,6 +142,20 @@ function generateRandomId(length) {
     }
     return result;
 }
+
+// メモの削除ボタン表示非表示
+function showDeleteButton() {
+    if (selectedMemoId == "") {
+        memoDeleteButton.style.display = "none";
+    } else {
+        memoDeleteButton.style.display = "block";
+    }
+}
+
+// ページ読み込み時にボタンの表示を更新する
+window.onload = function() {
+    showDeleteButton();
+};
 
 // selectタブで選択されたときに選択された内容を反映する
 function selectPerson() {
