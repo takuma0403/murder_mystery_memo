@@ -1,6 +1,9 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
+
+let memoFilePath = ""
 
 function createMainWindow () {
   let mainWindow = new BrowserWindow({
@@ -71,9 +74,35 @@ function createMainWindow () {
     // 子ウィンドウにファイルパスのデータを送信
     mainWindow.webContents.send('memo-file-path-from-parent-to-mainWindow', memoFilePath);
   });
-}
 
-let memoFilePath = ""
+  ipcMain.on('create-json-file', (event, data) => {
+    // ダイアログを開いてファイル保存先を選択
+    dialog.showSaveDialog(mainWindow, {
+        title: 'Create Memo Data File',
+        defaultPath: path.join(app.getPath('documents'), 'マダミス.json'), // デフォルトの保存先を指定
+        filters: [{ name: 'JSON Files', extensions: ['json'] }]
+    }).then(result => {
+        if (!result.canceled) {
+            let filePath = result.filePath;
+            if (!filePath.endsWith('.json')) {
+              filePath += '.json';
+            }
+            // ファイルにデータを書き込む
+            fs.writeFile(filePath, JSON.stringify(data, null, 2), err => {
+                if (err) {
+                    console.error('Failed to save the file:', err);
+                } else {
+                    console.log('File saved successfully:', filePath);
+                    memoFilePath = filePath
+                    mainWindow.webContents.send('finish-create-json-file')
+                }
+            });
+        }
+    }).catch(err => {
+        console.error('Error while saving the file:', err);
+    });
+});
+}
 
 app.whenReady().then(createMainWindow);
 

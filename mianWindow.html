@@ -10,13 +10,15 @@
       <div class="button-space">
         <div>
           <button id="file-open-button">メモデータ取り込み</button>
-        </div>
-        <div>
-          <button id="open-dialog">新規のメモ</button>
+          <button id="create-new-data-button">新規のメモデータ</button>
         </div>
       </div>
     </header>
     <div class="main-window">
+      <p id="memoTitle"></p>
+      <div>
+        <button id="open-dialog">新規のメモ</button>
+      </div>
       <div>
         <p>
           Hello World
@@ -46,7 +48,7 @@
           <textarea type="text" id="action" name="action" rows="5" cols="33"></textarea>
         </div>
         <div class="input-remarks">
-          <label for="action">備考:</label><br>
+          <label for="remarks">備考:</label><br>
           <textarea type="text" id="remarks" name="remarks" rows="2" cols="33"></textarea>
         </div>
       <button onclick="recordMemo()">保存して閉じる</button>

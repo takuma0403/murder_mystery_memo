@@ -1,6 +1,7 @@
 const { ipcRenderer } = require('electron');
 
 const fileOpenButton = document.getElementById('file-open-button');
+const createNewDataButton = document.getElementById('create-new-data-button');
 const text = document.getElementById('text');
 const dialog = document.getElementById('input-window-dialog');
 const openButton = document.getElementById('open-dialog');
@@ -11,6 +12,7 @@ let person_color = document.getElementById('person-color')
 let datetime = document.getElementById('datetime')
 let place = document.getElementById('place')
 let action = document.getElementById('action')
+let memoTitle = document.getElementById('memoTitle')
 
 const fs = require('fs'); 
 
@@ -20,10 +22,25 @@ let charactors = []
 
 let personSelected = false;
 
+// メモデータ取り込みボタンの処理
 fileOpenButton.addEventListener('click', async () => {
     const filePath = await ipcRenderer.invoke('open-dialog');
     ipcRenderer.send('send-path-to-parent', filePath);
     getMemoData()
+});
+
+// 新規のメモデータボタンの処理
+createNewDataButton.addEventListener('click', () => {
+    const initJsonData = {
+        title:"ababbabaaa",
+        persons:[],
+        memos:[]
+    };
+    // IPC通信でメインプロセスにファイル作成の指示を送信
+    ipcRenderer.send('create-json-file', initJsonData);
+    ipcRenderer.on('finish-create-json-file', () => {
+        getMemoData()
+    })
 });
 
 // ダイアログを開くボタンがクリックされたときの処理
@@ -44,9 +61,6 @@ function getMemoData() {
             const json = fs.readFileSync(path)
             const data = JSON.parse(json)
             fileMemoData = data
-            console.log("ばばば")
-            console.log(data)
-            console.log(fileMemoData)
         }
         else {
             return
@@ -106,9 +120,7 @@ function selectPersonReset() {
 
 // メモの内容が更新されたときに色々する
 function funcMemoReroad() {
-    console.log("はしったよお")
-    console.log(fileMemoData)
-    console.log(fileMemoData.persons)
+    memoTitle.innerText = fileMemoData.title
     fileMemoData.persons.forEach(function (person) {
         let option = document.createElement("option");
         option.value = person.name;
