@@ -2,25 +2,64 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="mainWindow.css">
     <title>Muder Mystery Memo</title>
   </head>
   <body>
     <header>
-      <div>
-        <button id="button">Open</button>
-        <p id="text"></p>
-    
-        <script src="mainWindow.js"></script>
-      </div>
-      <div>
-        <button onclick="openInputWindow()">Open Input Window</button>
+      <div class="button-space">
+        <div>
+          <button id="file-open-button">メモデータ取り込み</button>
+          <button id="create-new-data-button">新規のメモデータ</button>
+          <button id="save-data-for-json">メモのデータを保存する</button>
+        </div>
       </div>
     </header>
-    <div>
-      <p>
-        Hello World
-      </p>
+    <div class="main-window">
+      <p id="memoTitle"></p>
+      <div>
+        <button id="open-dialog">新規のメモ</button>
+      </div>
+      <div>
+        <p>
+          Hello World
+        </p>
+      </div>
     </div>
+    <dialog id="input-window-dialog">
+      <div class="input-div">
+        <div class="input-person">
+          <label for="person">人物:</label><br>
+          <input type="text" id="person" name="person" onchange="selectPersonReset()">
+          <select id="personSelect" onchange="selectPerson()">
+            <option value="" disabled selected>以前に入力した名前</option>
+          </select>
+          <input type="color" id="person-color" name="person-color">
+        </div>
+        <div class="input-datetime">
+          <label for="datetime">日時:</label><br>
+          <input type="datetime-local" id="datetime" name="datetime" placeholder="HH:MM">
+        </div>
+        <div class="input-place">
+          <label for="place">場所:</label><br>
+          <input type="text" id="place" name="place">
+        </div>
+        <div class="input-action">
+          <label for="action">行動:</label><br>
+          <textarea type="text" id="action" name="action" rows="5" cols="33"></textarea>
+        </div>
+        <div class="input-remarks">
+          <label for="remarks">備考:</label><br>
+          <textarea type="text" id="remarks" name="remarks" rows="2" cols="33"></textarea>
+        </div>
+      <button onclick="recordMemo()">保存して閉じる</button>
+      <button id="close-dialog">保存せずに閉じる</button>
+      <button id="memo-delete-button" dstyle="display: none;">メモの削除</button>
+    </dialog>
+      <script src="mainWindow.js"></script>
+    </div>
+    <footer>
+      
+    </footer>
   </body>
 </html>

@@ -1,33 +1,39 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="inputWindow.css">
     <title>Muder Mystery Memo inputWindow</title>
   </head>
   <body>
-    <div class="input-div">
-      <div>
-        <label for="person">人物:</label><br>
-        <input type="text" id="person" name="person">
-        <input type="color" id="person-color" name="person-color">
+    <div class="input-window">
+      <div class="input-div">
+        <div class="input-person">
+          <label for="person">人物:</label><br>
+          <input type="text" id="person" name="person" onchange="selectPersonReset()">
+          <input type="color" id="person-color" name="person-color">
+          <select id="personSelect" onchange="selectPerson()">
+            <option value="" disabled selected>以前に入力した名前</option>
+          </select>
+        </div>
+        <div class="input-time">
+          <label for="time">時間:</label><br>
+          <input type="time" id="time" name="time" pattern="[0-2][0-9]:[0-5][0-9]" placeholder="HH:MM">
+        </div>
+        <div class="input-place">
+          <label for="place">場所:</label><br>
+          <input type="text" id="place" name="place">
+        </div>
+        <div class="input-action">
+          <label for="action">行動:</label><br>
+          <!-- <input type="text" id="action" name="action"> -->
+          <textarea type="text" id="action" name="action" rows="5" cols="33"></textarea>
+        </div>
+        <div class="submit-button">
+          <button onclick="recordMemo()">Submit</button>
+        </div>
       </div>
-      <div>
-        <label for="time">時間:</label><br>
-        <input type="time" id="time" name="time">
-      </div>
-      <div>
-        <label for="place">場所:</label><br>
-        <input type="text" id="place" name="place">
-      </div>
-      <div>
-        <label for="action">行動:</label><br>
-        <input type="text" id="action" name="action">
-      </div>
-    </div>
-    <div>
-      <button onclick="recordMemo()">Submit</button>
     </div>
     <script src="inputWindow.js"></script>
   </body>
-</html>
+</html> -->

@@ -1,6 +1,9 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
+
+let memoFilePath = ""
 
 function createMainWindow () {
   let mainWindow = new BrowserWindow({
@@ -12,6 +15,8 @@ function createMainWindow () {
       contextIsolation: false,
     }
   });
+
+  mainWindow.webContents.openDevTools() // デベロッパーツール
 
   //アプリケーションのindex.htmlをロードします。
   mainWindow.loadURL(url.format({
@@ -60,47 +65,52 @@ function createMainWindow () {
   ipcMain.on('text-entered', (event, text) => {
     console.log('Text entered:', text);
   });
-  // createInputWindow()
+
+  ipcMain.on('send-path-to-parent', (event, path) => {
+    memoFilePath = path;
+  });
+  
+  ipcMain.on('request-memo-file-path', () => {
+    // 子ウィンドウにファイルパスのデータを送信
+    mainWindow.webContents.send('memo-file-path-from-parent-to-mainWindow', memoFilePath);
+  });
+
+  ipcMain.on('create-json-file', (event, data) => {
+    // ダイアログを開いてファイル保存先を選択
+    dialog.showSaveDialog(mainWindow, {
+        title: 'Create Memo Data File',
+        defaultPath: path.join(app.getPath('documents'), 'マダミス.json'), // デフォルトの保存先を指定
+        filters: [{ name: 'JSON Files', extensions: ['json'] }]
+    }).then(result => {
+        if (!result.canceled) {
+            let filePath = result.filePath;
+            if (!filePath.endsWith('.json')) {
+              filePath += '.json';
+            }
+            // ファイルにデータを書き込む
+            fs.writeFile(filePath, JSON.stringify(data, null, 2), err => {
+                if (err) {
+                    console.error('Failed to save the file:', err);
+                } else {
+                    console.log('File saved successfully:', filePath);
+                    memoFilePath = filePath
+                    mainWindow.webContents.send('finish-create-json-file')
+                }
+            });
+        }
+    }).catch(err => {
+        console.error('Error while saving the file:', err);
+    });
+  });
+  ipcMain.on('request-data-save', (event, data) => {
+    if (data) {
+      fs.writeFile(memoFilePath, JSON.stringify(data, null, 2), (err) => {
+        if (err) throw err;
+        console.log('Data has been saved.');
+    });
+    }
+  })
 }
-
-// function createInputWindow () {
-//   let inputWindow = new BrowserWindow({
-//     width: 400,
-//     height: 600,
-//     webPreferences: {
-//       defaultEncoding: 'UTF-8'
-//     }
-//   });
-
-//   //アプリケーションのindex.htmlをロードします。
-//   inputWindow.loadURL(url.format({
-//     pathname: path.join(__dirname, '/inputWindow.html'),
-//     protocol: 'file:',
-//     slashes: true
-//   }));
-
-//   //ウィンドウが閉じられると発生します。
-//   inputWindow.on('closed', () => {
-//     win = null
-//   });
-// }
-
-// //このメソッドは、Electronが初期化を終了し、ブラウザウィンドウを作成する準備ができたときに呼び出されます。
-// app.on('ready', createMainWindow);
-// // app.on('ready', createMainWindow, createInputWindow);
-
-// //すべてのウィンドウが閉じられると終了します。
-// app.on('window-all-closed', () => {
-//     app.quit();
-// });
-
-// app.on('activate', () => {
-//   // MacOSでは、ウィンドウを全て閉じても、プロセスは生き続け、
-//   // ドックアイコンをクリックすると、再表示される。
-//   if (win === null) {
-//   }
-// });
-
 
 app.whenReady().then(createMainWindow);
 
