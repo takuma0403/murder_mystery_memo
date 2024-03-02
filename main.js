@@ -13,6 +13,8 @@ function createMainWindow () {
     }
   });
 
+  mainWindow.webContents.openDevTools() // デベロッパーツール
+
   //アプリケーションのindex.htmlをロードします。
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, '/mianWindow.html'),
@@ -66,7 +68,7 @@ function createMainWindow () {
   });
   
   ipcMain.on('request-memo-file-path', () => {
-    // 子ウィンドウにデータを送信
+    // 子ウィンドウにファイルパスのデータを送信
     mainWindow.webContents.send('memo-file-path-from-parent-to-mainWindow', memoFilePath);
   });
 }
