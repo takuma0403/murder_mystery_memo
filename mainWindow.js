@@ -12,14 +12,26 @@ let person_color = document.getElementById('person-color')
 let datetime = document.getElementById('datetime')
 let place = document.getElementById('place')
 let action = document.getElementById('action')
+let remarks = document.getElementById('remarks')
 let memoTitle = document.getElementById('memoTitle')
 
 const fs = require('fs'); 
 
-let fileMemoData = {}
+let memosData = {}
 let persons = [];
 let charactors = []
 
+const defaultMemoObject = {
+    id:"",
+    name:"",
+    color:"",
+    datetime:"",
+    place:"",
+    action:"",
+    remarks:""
+}
+
+let selectedMemoId = ""
 let personSelected = false;
 
 // メモデータ取り込みボタンの処理
@@ -60,7 +72,7 @@ function getMemoData() {
         if (path) {
             const json = fs.readFileSync(path)
             const data = JSON.parse(json)
-            fileMemoData = data
+            memosData = data
         }
         else {
             return
@@ -87,22 +99,41 @@ function recordMemo() {
         }
     }
 
-    // debug
-    // console.log(newCharacter)
-
-    const log = {
-        person: person.value,
-        person_color: person_color.value,
-        datetime: datetime.value,
-        place: place.value,
-        action: action.value
+    if (selectedMemoId == "") {
+        memoId = generateRandomId(8)
+    }
+    else {
+        memoId = selectedMemoId
     }
 
-    // console.log(log)
+    const record = {
+        id:memoId,
+        name: person.value,
+        color: person_color.value,
+        datetime: datetime.value,
+        place: place.value,
+        action: action.value,
+        remarks: remarks.value
+    }
+
+    memosData.memos.push(record)
 
     funcMemoReroad()
 
+    selectedMemoId = ""
+
     dialog.close();
+}
+
+// idの作成関数
+function generateRandomId(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
 // selectタブで選択されたときに選択された内容を反映する
@@ -110,18 +141,35 @@ function selectPerson() {
     personSelected = true
     if (select.value !== "") {
         person.value = select.value;
+        memosData.persons.forEach(Person => {
+            if (Person.name == select.value) {
+                person_color.value = Person.color
+            }
+        });
     }
 }
 // 人物を手動入力したときはselectタブをリセットする
 function selectPersonReset() {
     personSelected = false
-    select.value = "";
+    select.value = ""
+    person_color.value = "#000000"
 }
 
 // メモの内容が更新されたときに色々する
 function funcMemoReroad() {
-    memoTitle.innerText = fileMemoData.title
-    fileMemoData.persons.forEach(function (person) {
+    // タイトルの更新
+    memoTitle.innerText = memosData.title
+
+    // personsの更新
+    memosData.persons = []
+    memosData.persons = memosData.memos.filter((memo, index, self) => self.findIndex(t => t.name === memo.name) === index);
+
+    // selectタブの更新
+    select.innerHTML = ''
+    let option = document.createElement("option");
+    option.text = "以前に入力した名前"
+    select.add(option)
+    memosData.persons.forEach(function (person) {
         let option = document.createElement("option");
         option.value = person.name;
         option.text = person.name;
