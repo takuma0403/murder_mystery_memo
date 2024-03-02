@@ -113,22 +113,25 @@ function getMemoData() {
 
 // 保存して閉じるボタン（なんかいろいろ）
 function recordMemo() {
-    const newCharacter = { name: person.value, color: person_color.value }
-
-    const isNameDuplicate = charactors.some(character => character.name === newCharacter.name);
-    const isColorDuplicate = charactors.some(character => character.color === newCharacter.color);
-
-    if (!isNameDuplicate && !isColorDuplicate) {
-        charactors.push(newCharacter);
-    } else {
-        if (isNameDuplicate && !personSelected) {
-            alert("すでにその名前は存在しています")
-            return
+    let isNameDuplicate = false
+    let isColorDuplicate = false
+    memosData.persons.forEach(Person => {
+        if (Person.name == person.value) {
+            isNameDuplicate = true
         }
-        if (isColorDuplicate && !personSelected) {
-            alert("すでにその色は使われています")
-            return
+        if (Person.color == person_color.value) {
+            isColorDuplicate = true
         }
+        
+    });
+
+    if (isNameDuplicate && !personSelected) {
+        alert("すでにその名前は存在しています")
+        return
+    }
+    if (isColorDuplicate && !personSelected) {
+        alert("すでにその色は使われています")
+        return
     }
 
     if (selectedMemoId == "") {
