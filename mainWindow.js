@@ -46,8 +46,7 @@ fileOpenButton.addEventListener('click', async () => {
 // 新規のメモデータボタンの処理
 createNewDataButton.addEventListener('click', () => {
     const initJsonData = {
-        title:"ababbabaaa",
-        persons:[],
+        title:"murder_mystery_memo",
         memos:[]
     };
     // IPC通信でメインプロセスにファイル作成の指示を送信
